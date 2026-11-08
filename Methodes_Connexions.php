@@ -1,23 +1,42 @@
 <?php
-include "PHP_Extension_classe.php";
+// Accès MariaDB : secrets dans /etc/coreen/database.php, hors du document root.
+require_once __DIR__ . '/PHP_Extension_classe.php';
 
-$BDD_HOST = "localhost";$_SESSION['BDD_HOST'] = $BDD_HOST;
-$BDD = "vocabulairecoreen";$_SESSION['BDD'] = $BDD;
-$BDD_LOGIN = "coreen_app";$_SESSION['BDD_LOGIN'] = $BDD_LOGIN;
-$BDD_PWD = "TessaCravero2002!";$_SESSION['BDD_PWD'] = $BDD_PWD;
+$configPath = '/etc/coreen/database.php';
+if (!is_readable($configPath)) {
+    error_log('[coreen] Fichier MariaDB absent ou illisible : ' . $configPath);
+    http_response_code(503);
+    exit('Configuration de la base de données indisponible.');
+}
 
-try
-{
-$bdd = new MyPDO('mysql:host='.$BDD_HOST.';dbname='.$BDD.';charset=utf8', $BDD_LOGIN, $BDD_PWD);
-//echo '<span>Connection à la base de données "'.$BDD.'" OK </span>'."<br/>"."\r\n";
+$config = require $configPath;
+if (!is_array($config) || !isset($config['host'], $config['database'], $config['username'], $config['password']) ||
+    !is_string($config['host']) || !is_string($config['database']) ||
+    !is_string($config['username']) || !is_string($config['password'])) {
+    error_log('[coreen] Format de configuration MariaDB incorrect.');
+    http_response_code(503);
+    exit('Configuration de la base de données invalide.');
 }
-catch (Exception $e)
-{
-        die('Erreur : ' . $e->getMessage());
-        echo 'Erreur : ' . $e->getMessage().'<br/>';
-        http_response_code(500);
-        exit;
+
+$BDD_HOST = $config['host'];
+$BDD = $config['database'];
+$BDD_LOGIN = $config['username'];
+$BDD_PWD = $config['password'];
+unset($config); // Ne pas stocker le mot de passe dans la session.
+
+try {
+    $bdd = new MyPDO(
+        'mysql:host=' . $BDD_HOST . ';dbname=' . $BDD . ';charset=utf8mb4',
+        $BDD_LOGIN,
+        $BDD_PWD
+    );
+    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (Throwable $e) {
+    error_log('[coreen] Échec de connexion MariaDB : ' . $e->getMessage());
+    http_response_code(503);
+    exit('Connexion à la base de données indisponible.');
 }
+unset($BDD_PWD); // Ne pas conserver la variable en mémoire au-delà de la connexion.
 
 function All_to_POST()
 {

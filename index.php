@@ -1,15 +1,43 @@
 <?php
-    include "Methodes_Connexions.php";
-
+// On demarre la session avant tout affichage HTML.
+if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
+}
+require_once __DIR__ . '/Methodes_Connexions.php';
 
-    // ConnexionRedirectionAdmin();
-    ConnexionUser_Detail();
-    if (ConnexionUser() == UserStatut::NonConnecte)
-    {
-        header("Location: Connexion.php");
-        exit;
+// Le panneau d'accueil reste reserve aux utilisateurs connectes.
+if (ConnexionUser() === UserStatut::NonConnecte) {
+    header('Location: Connexion.php');
+    exit;
+}
+
+// Les valeurs de session sont echappees a l'affichage (prevention XSS).
+$compte = $_SESSION['Connexion_User'] ?? [];
+$prenom = trim((string)($compte['Prenom'] ?? ''));
+$nom = trim((string)($compte['Nom'] ?? ''));
+$nomAffiche = trim($prenom . ' ' . $nom);
+if ($nomAffiche === '') {
+    $nomAffiche = (string)($compte['Login'] ?? 'Utilisateur');
+}
+$initiale = mb_strtoupper(mb_substr($prenom !== '' ? $prenom : $nomAffiche, 0, 1, 'UTF-8'), 'UTF-8');
+$fonction = ConnexionUser();
+$statutCompte = ($fonction === UserStatut::SAdministrateur) ? 'Super administrateur' :
+               (($fonction === UserStatut::Administrateur) ? 'Administrateur' :
+               (($fonction === UserStatut::NonValider) ? 'Compte en attente' : 'Compte connecté'));
+$derniereConnexion = '';
+if (!empty($compte['LastConnexion'])) {
+    try {
+        $derniereConnexion = (new DateTimeImmutable((string)$compte['LastConnexion']))->format('d/m/Y à H:i');
+    } catch (Exception $e) {
+        // Une date incorrecte ne doit pas empecher l'affichage de l'accueil.
     }
+}
+if (empty($_SESSION['coreen_logout_csrf'])) {
+    $_SESSION['coreen_logout_csrf'] = bin2hex(random_bytes(24));
+}
+function echapperHtml($texte) {
+    return htmlspecialchars((string)$texte, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
 ?>
 <!DOCTYPE html>
 <html id="htmlMain" lang="fr">
@@ -18,16 +46,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#14213d" />
     <link rel="icon" type="image/jpeg" href="image/logo.jpeg" />
-    <link rel="stylesheet" type="text/css" href="index.css?v=2" media="all" />
+    <link rel="stylesheet" type="text/css" href="index.css?v=3" media="all" />
     <title>Vocabulaire coréen · Apprentissage</title>
 </head>
 <body id="bodyMain" data-view="themes">
     <div class="app-shell">
         <header class="hero">
             <div class="hero__content">
-                <div class="hero__eyebrow"><span class="hero__eyebrow-dot"></span> APPRENDRE LE CORÉEN</div>
+                <div class="hero__topbar">
+                    <div class="hero__eyebrow"><span class="hero__eyebrow-dot"></span> APPRENDRE LE CORÉEN</div>
+                    <div class="hero__account" aria-label="Utilisateur connecté">
+                        <span class="hero__avatar" aria-hidden="true"><?= echapperHtml($initiale) ?></span>
+                        <span class="hero__identity">
+                            <strong><?= echapperHtml($nomAffiche) ?></strong>
+                            <small><?= echapperHtml($statutCompte) ?></small>
+                        </span>
+                        <form method="post" action="Deconnexion.php" class="hero__logout-form">
+                            <input type="hidden" name="csrf_token" value="<?= echapperHtml($_SESSION['coreen_logout_csrf']) ?>">
+                            <button type="submit" class="hero__logout" title="Se déconnecter de l'application">Déconnexion</button>
+                        </form>
+                    </div>
+                </div>
                 <h1>Le coréen, un mot à la fois<span class="hero__period">.</span></h1>
                 <p>Explorez les thèmes, mémorisez le vocabulaire et testez vos connaissances à votre rythme.</p>
+                <?php if ($derniereConnexion !== ''): ?>
+                    <p class="hero__last-login">Dernière connexion : <?= echapperHtml($derniereConnexion) ?></p>
+                <?php endif; ?>
                 <div class="hero__tags" aria-label="Fonctionnalités">
                     <span>한글 · Hangeul</span>
                     <span>Écoute et prononciation</span>

@@ -164,3 +164,34 @@ table#dictionnaire th:last-child, table#dictionnaire td:last-child { text-align:
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
 }
+
+/* Compte utilisateur dans le bandeau - ajout du 08/11/2026 */
+.hero { align-items: center; }
+.hero__content { width: 100%; max-width: none; }
+.hero__content > h1, .hero__content > p:not(.hero__last-login), .hero__tags { max-width: 800px; }
+.hero__topbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; position: relative; z-index: 3; }
+.hero__account { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 0 0 auto; padding: 7px 8px 7px 9px; border: 1px solid rgba(255,255,255,.16); border-radius: 15px; background: rgba(255,255,255,.085); backdrop-filter: blur(8px); }
+.hero__avatar { flex: 0 0 34px; display: grid; place-items: center; width: 34px; height: 34px; background: #e5e9ff; color: #293f97; border-radius: 10px; font-size: 15px; font-weight: 850; }
+.hero__identity { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
+.hero__identity strong { max-width: 200px; font-size: 12px; font-weight: 750; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hero__identity small { color: #c6d3ef; font-size: 10px; }
+.hero__logout-form { margin: 0 0 0 8px; padding: 0; }
+.hero__logout { border: 1px solid rgba(255,255,255,.22); border-radius: 9px; background: rgba(255,255,255,.12); color: #fff; padding: 10px 12px; font-size: 11px; font-weight: 750; transition: background .2s; }
+.hero__logout:hover { background: rgba(255,255,255,.24); }
+.hero__logout:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.hero__last-login { margin-top: 9px !important; font-size: 11px !important; color: #bfcbed !important; }
+.hero__symbol { position: absolute; right: 4%; bottom: 14px; pointer-events: none; }
+@media (max-width: 780px) {
+    .hero__topbar { flex-direction: column-reverse; align-items: stretch; gap: 20px; }
+    .hero__account { align-self: stretch; }
+    .hero__identity { flex: 1; }
+    .hero__identity strong { max-width: unset; }
+    .hero__eyebrow { align-self: flex-start; }
+    .hero__last-login { line-height: 1.4 !important; }
+}
+@media (max-width: 420px) {
+    .hero__account { gap: 7px; padding: 6px; }
+    .hero__logout-form { margin-left: 0; }
+    .hero__logout { padding: 9px 8px; font-size: 10px; }
+    .hero__identity strong { font-size: 11px; }
+}

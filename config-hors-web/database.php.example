@@ -1,0 +1,9 @@
+<?php
+// Installer ce fichier uniquement dans /etc/coreen/database.php, hors du site Web.
+// Ne pas partager sa version contenant le mot de passe.
+return [
+    'host'     => 'localhost',
+    'database' => 'vocabulairecoreen',
+    'username' => 'coreen_app',
+    'password' => 'REMPLACER_PAR_LE_MOT_DE_PASSE_MARIADB',
+];

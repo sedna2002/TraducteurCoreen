@@ -1,69 +1,60 @@
 <?php
-include "Methodes_Connexions.php";
+// Vérification de la connexion : compatible avec les mots de passe MD5 historiques.
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+require_once __DIR__ . '/Methodes_Connexions.php';
+header('Content-Type: text/plain; charset=UTF-8');
+header('Cache-Control: no-store');
 
-session_start();
-
-$login = isset($_POST['login']) ? $_POST['login'] : null;
-$pw_md5 = isset($_POST['pw']) ? $_POST['pw'] : null;
-if ($login == null || $pw_md5 == null)
-{
-    http_response_code(400);
-    echo 'NOK';
-    exit;
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    exit('NOK');
 }
 
-$sql = "SELECT * FROM utilisateurs WHERE Login = '".$login."' AND Password = '".$pw_md5."'";
+$login = isset($_POST['login']) && is_string($_POST['login']) ? trim($_POST['login']) : '';
+$pwMd5 = isset($_POST['pw']) && is_string($_POST['pw']) ? $_POST['pw'] : '';
+if ($login === '' || strlen($login) > 100 || !preg_match('/^[a-f0-9]{32}$/i', $pwMd5)) {
+    http_response_code(400);
+    exit('NOK');
+}
 
-$resultat = $bdd->query($sql);
-	if ($resultat != false)
-	{	
-        
-        $row = $resultat->fetch(PDO::FETCH_ASSOC);
-        if ( isset( $row['Login'] ) ) 
-        {   	
-            foreach($row as $key => $value)
-            {
-                $_SESSION['Connexion_User'][$key] = $value;
-            }
+try {
+    // Requête préparée pour éviter l'injection SQL sur le login.
+    $requete = $bdd->prepare('SELECT * FROM `utilisateurs` WHERE `Login` = :login AND `Password` = :pw LIMIT 1');
+    $requete->execute([':login' => $login, ':pw' => strtolower($pwMd5)]);
+    $compte = $requete->fetch(PDO::FETCH_ASSOC);
+    $requete->closeCursor();
 
-            $sql = "SELECT * from historique WHERE User_id = ".$row['User_id']." ORDER BY Date DESC limit 1";
-            $resultat2 = $bdd->query($sql);
-            
-            if ($resultat2 != false)
-            {
-                $row = $resultat2->fetch(PDO::FETCH_ASSOC);
-                if ( isset( $row['Date'] ) ) 
-                {
-                    $_SESSION['Connexion_User']['LastConnexion'] = $row['Date'];
-                }
-                else
-                    $_SESSION['Connexion_User']['LastConnexion'] = NULL;
-
-                $resultat2->closeCursor();
-            }
-
-            $sql = "INSERT INTO historique (User_id,Date,AdresseIp,Host) values (".
-                $_SESSION['Connexion_User']['User_id'].",'".date("Y-m-d H:i:s")."','".$_SERVER['REMOTE_ADDR']."','".$_SERVER['HTTP_USER_AGENT']."')";
-
-            $resultat3 = $bdd->query($sql);
-            http_response_code(200);
-            echo 'OK';
-        }
-        else
-        {
-            http_response_code(400);
-            echo 'NOK';
-            exit;
-        }
-
-    $resultat->closeCursor();
+    if (!$compte) {
+        http_response_code(401);
+        exit('NOK');
     }
-    else
-    {
-        http_response_code(400);
-        echo 'NOK';
-        exit;
+    if (empty($compte['Valider'])) {
+        http_response_code(403);
+        exit('NON_VALIDE');
     }
 
-    
-?>
+    $historique = $bdd->prepare('SELECT `Date` FROM `historique` WHERE `User_id` = :id ORDER BY `Date` DESC LIMIT 1');
+    $historique->execute([':id' => $compte['User_id']]);
+    $precedente = $historique->fetch(PDO::FETCH_ASSOC);
+    $historique->closeCursor();
+
+    $ajout = $bdd->prepare('INSERT INTO `historique` (`User_id`, `Date`, `AdresseIp`, `Host`)
+                            VALUES (:id, :date, :ip, :agent)');
+    $ajout->execute([
+        ':id' => $compte['User_id'],
+        ':date' => date('Y-m-d H:i:s'),
+        ':ip' => $_SERVER['REMOTE_ADDR'] ?? null,
+        ':agent' => $_SERVER['HTTP_USER_AGENT'] ?? null,
+    ]);
+
+    session_regenerate_id(true);
+    $_SESSION['Connexion_User'] = $compte;
+    $_SESSION['Connexion_User']['LastConnexion'] = $precedente['Date'] ?? null;
+    echo 'OK';
+} catch (Throwable $e) {
+    error_log('[coreen] Erreur lors de l’authentification : ' . $e->getMessage());
+    http_response_code(503);
+    echo 'NOK';
+}
