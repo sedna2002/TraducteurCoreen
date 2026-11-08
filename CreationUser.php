@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/Methodes_Connexions.php';
+if (empty($_SESSION['coreen_account_csrf'])) $_SESSION['coreen_account_csrf'] = bin2hex(random_bytes(32));
 
 $modification = ConnexionUser() != UserStatut::NonConnecte;
 $user = $modification ? ($_SESSION['Connexion_User'] ?? []) : [];
@@ -58,6 +59,7 @@ function account_checked($user, $name) {
             <?php endif; ?>
 
             <form id="form1" data-mode="<?= $modification ? 'update' : 'create' ?>" novalidate>
+                <input type="hidden" id="account_csrf_token" value="<?= htmlspecialchars($_SESSION['coreen_account_csrf'], ENT_QUOTES, 'UTF-8') ?>">
                 <div class="account-fields">
                     <div class="account-field account-field--wide">
                         <label for="login">Identifiant <span class="required">*</span></label>
@@ -155,7 +157,7 @@ function account_checked($user, $name) {
                     <?= $modification ? 'Enregistrer les modifications' : 'Créer mon compte' ?>
                     <span aria-hidden="true">→</span>
                 </button>
-                <p class="account-required"><span class="required">*</span> Champs obligatoires</p>
+                <p class="account-required"><span class="required">*</span> Champs obligatoires. Pour récupérer votre mot de passe, renseignez votre e-mail dans les options avancées.</p>
                 <?php if (!$modification): ?>
                     <p class="account-signin">Déjà inscrit ? <a href="Connexion.php">Se connecter</a></p>
                 <?php endif; ?>

@@ -93,3 +93,10 @@ button:disabled { cursor: wait; opacity: .72; }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
 }
+
+/* Ajouts : récupération des accès */
+.reset-forgot-link { text-align: right; margin: 15px 0 0; font-size: 13px; }
+.reset-forgot-link a { color: #455bd0; text-decoration: none; font-weight: 750; }
+.reset-forgot-link a:hover { text-decoration: underline; }
+.reset-form { margin-top: 26px; }
+.reset-link-button { display: block; padding: 14px 18px; text-align: center; background: #4655df; color:white; text-decoration:none; border-radius: 11px; font-size:14px; font-weight:800; margin-top:24px; }

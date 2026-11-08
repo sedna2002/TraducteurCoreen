@@ -1,95 +1,71 @@
 <?php
-include "Methodes_Connexions.php";
-
-session_start();
-
-/*
-login="+login+"&pw="+pw_md5+"&nom="+nom+"&prenom="+prenom+"&mail1="+mail1+"&mail2="+mail2+"&telephone="+telephone+ \
-"&telephone_pw="+telephone_pw+"&telephone_check="+telephone_check+"&key_api="+key_api+"&secret_api="+secret_api+ \
-"&mail1_check="+mail1_check+"&mail2_check="+mail2_check);
-*/
-
+/** Création et édition du compte : requêtes préparées et stockage salé moderne. */
+if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+require_once __DIR__ . '/Methodes_Connexions.php';
+header('Content-Type: text/plain; charset=UTF-8');
+header('Cache-Control: no-store');
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') { http_response_code(405); exit('NOK'); }
+$csrf = $_POST['csrf_token'] ?? null;
+if (!is_string($csrf) || empty($_SESSION['coreen_account_csrf']) || !hash_equals($_SESSION['coreen_account_csrf'], $csrf)) {
+    http_response_code(403); exit('Jeton de sécurité invalide. Rechargez la page.');
+}
 $update = isset($_GET['update']);
-
-$login = isset( $_POST['login'] ) ? $_POST['login'] : NULL;
-$pw = isset( $_POST['pw'] ) ? $_POST['pw'] : NULL;
-$nom = isset( $_POST['nom'] ) ? $_POST['nom'] : NULL;
-$prenom = isset( $_POST['prenom'] ) ? $_POST['prenom'] : NULL;
-$mail1 = isset( $_POST['mail1'] ) ? $_POST['mail1'] : NULL;
-$mail2 = isset( $_POST['mail2'] ) ? $_POST['mail2'] : NULL;
-$telephone = isset( $_POST['telephone'] ) ? $_POST['telephone'] : NULL;
-$telephone_login = isset( $_POST['telephone_login'] ) ? $_POST['telephone_login'] : NULL;
-$telephone_pw = isset( $_POST['telephone_pw'] ) ? $_POST['telephone_pw'] : NULL;
-$key_api = isset( $_POST['key_api'] ) ? $_POST['key_api'] : NULL;
-$secret_api = isset( $_POST['secret_api'] ) ? $_POST['secret_api'] : NULL;
-$telephone_check = isset( $_POST['telephone_check'] ) ? $_POST['telephone_check'] : NULL;
-$mail1_check = isset( $_POST['mail1_check'] ) ? $_POST['mail1_check'] : NULL;
-$mail2_check = isset( $_POST['mail2_check'] ) ? $_POST['mail2_check'] : NULL;
-$user_id = isset( $_SESSION['Connexion_User'] ) ?  $_SESSION['Connexion_User']['User_id'] : NULL;
-
-$sql = "SELECT * FROM utilisateurs WHERE Login = '".$login."'";
-
-$resultat = $bdd->query($sql);
-    if ($resultat != false)
-    {
-        $row = $resultat->fetch(PDO::FETCH_ASSOC);
-        if ( isset( $row['login'] ) ) 
-        {
-            http_response_code(400);
-            echo "Le Login est déjà utilisé.";
-            exit;
+$login = is_string($_POST['login'] ?? null) ? trim($_POST['login']) : '';
+$nom = is_string($_POST['nom'] ?? null) ? trim($_POST['nom']) : '';
+$prenom = is_string($_POST['prenom'] ?? null) ? trim($_POST['prenom']) : '';
+$pw = is_string($_POST['pw'] ?? null) ? strtolower($_POST['pw']) : '';
+$mail1 = is_string($_POST['mail1'] ?? null) ? trim($_POST['mail1']) : '';
+$mail2 = is_string($_POST['mail2'] ?? null) ? trim($_POST['mail2']) : '';
+if (!$login || strlen($login) > 100 || strlen($nom) < 2 || strlen($prenom) < 2 ||
+    strlen($nom) > 150 || strlen($prenom) > 150 ||
+    (!$update && !preg_match('/^[a-f0-9]{32}$/D', $pw)) ||
+    ($mail1 !== '' && !filter_var($mail1, FILTER_VALIDATE_EMAIL)) ||
+    ($mail2 !== '' && !filter_var($mail2, FILTER_VALIDATE_EMAIL))) {
+    http_response_code(400); exit('Vérifiez les informations saisies.');
+}
+$cols = [
+    'Nom' => $nom, 'Prenom' => $prenom, 'Mail1' => $mail1 ?: null, 'Mail2' => $mail2 ?: null,
+    'Telephone' => substr((string)($_POST['telephone'] ?? ''), 0, 40),
+    'loginServiceSMSFree' => substr((string)($_POST['telephone_login'] ?? ''), 0, 255),
+    'clefServiceSMSFree' => substr((string)($_POST['telephone_pw'] ?? ''), 0, 255),
+    'KeyAPI' => (string)($_POST['key_api'] ?? ''),
+    'SecretAPI' => (string)($_POST['secret_api'] ?? ''),
+    'mail1Enable' => ($_POST['mail1_check'] ?? '') === '1' ? 1 : 0,
+    'mail2Enable' => ($_POST['mail2_check'] ?? '') === '1' ? 1 : 0,
+    'ServiceSMSFreeEnable' => ($_POST['telephone_check'] ?? '') === '1' ? 1 : 0,
+];
+try {
+    if ($update) {
+        $userId = filter_var($_SESSION['Connexion_User']['User_id'] ?? null, FILTER_VALIDATE_INT);
+        if (!$userId || !($_SESSION['Connexion_User']['Valider'] ?? false)) {
+            http_response_code(403); exit('Vous devez être connecté.');
         }
-
-        $resultat->closeCursor();
+        $parts = [];
+        foreach ($cols as $column => $value) $parts[] = '`' . $column . '`=:' . $column;
+        $sql = 'UPDATE `utilisateurs` SET ' . implode(', ', $parts) . ', `Date_upd`=NOW() WHERE `User_id`=:User_id';
+        $stmt = $bdd->prepare($sql);
+        $stmt->execute($cols + ['User_id' => $userId]);
+        $read = $bdd->prepare('SELECT * FROM `utilisateurs` WHERE `User_id`=:id LIMIT 1');
+        $read->execute([':id' => $userId]);
+        $new = $read->fetch(PDO::FETCH_ASSOC);
+        if ($new) { unset($new['Password']); $_SESSION['Connexion_User'] = array_merge($_SESSION['Connexion_User'], $new); }
+    } else {
+        $cols['Login'] = $login;
+        $cols['Password'] = password_hash('md5:' . $pw, PASSWORD_DEFAULT);
+        $cols['Administrateur'] = 0;
+        $cols['SAdministrateur'] = 0;
+        $cols['Valider'] = 0;
+        $columns = array_keys($cols);
+        $stmt = $bdd->prepare('INSERT INTO `utilisateurs` (`' . implode('`,`', $columns) . '`, `Date_cre`)
+            VALUES (:' . implode(',:', $columns) . ', NOW())');
+        $stmt->execute($cols);
     }
-
-    if (!$update)
-    {
-        $sql = "INSERT INTO utilisateurs (Login,Password,Nom,Prenom,Mail1,Mail2,Telephone,loginServiceSMSFree,
-            clefServiceSMSFree,KeyAPI,SecretAPI,mail1Enable,mail2Enable,ServiceSMSFreeEnable,Date_cre,Administrateur,Valider) VALUES
-            ('".$login."','".$pw."','".$nom."','".$prenom."','".$mail1."','".$mail2."','".$telephone."','".
-            $telephone_login."','".$telephone_pw."','".$key_api."','".$secret_api."',".$mail1_check.",".
-            $mail2_check.",".$telephone_check.",'".date("Y-m-d H:i:s")."',false,false)";
-
-        $resultat = $bdd->query($sql);
-
-        if ($resultat != false)
-            echo "OK";
-            else
-            {
-                http_response_code(400);
-                echo "NOK".$sql;
-            }
-    }
-    else
-    {
-        $sql = "UPDATE utilisateurs SET Nom = '".$nom."' , Prenom = '".$prenom."', Mail1 = '".$mail1."' ,
-            Mail2 = '".$mail2."' , Telephone = '".$telephone."' , loginServiceSMSFree = '".$telephone_login."' ,
-            clefServiceSMSFree = '".$telephone_pw."' , KeyAPI = '".$key_api."' , SecretAPI = '".$secret_api."' , 
-            mail1Enable = ".$mail1_check." , mail2Enable = ".$mail2_check." , ServiceSMSFreeEnable = ".$telephone_check." , 
-            Date_upd = '".date("Y-m-d H:i:s")."'  
-            WHERE User_id = ".$user_id;
-
-        $resultat = $bdd->query($sql);
-
-        if ($resultat != false)
-            echo "OK";
-            else
-            {
-                http_response_code(400);
-                echo "NOK".$sql;
-            }
-
-        $sql = "SELECT * FROM utilisateurs WHERE User_id = ".$user_id;
-        $resultat = $bdd->query($sql);
-        if ($resultat != false)
-        {
-            $row = $resultat->fetch(PDO::FETCH_ASSOC);
-            foreach($row as $key => $value)
-            {
-                $_SESSION['Connexion_User'][$key] = $value;
-            }
-        }
-    }
-    
-?>
+    echo 'OK';
+} catch (PDOException $e) {
+    if ($e->getCode() === '23000') { http_response_code(409); exit('Cet identifiant est déjà utilisé.'); }
+    error_log('[coreen] Enregistrement utilisateur : ' . $e->getMessage());
+    http_response_code(503); echo 'Enregistrement temporairement indisponible.';
+} catch (Throwable $e) {
+    error_log('[coreen] Erreur utilisateur : ' . $e->getMessage());
+    http_response_code(503); echo 'Enregistrement temporairement indisponible.';
+}

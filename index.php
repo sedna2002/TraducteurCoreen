@@ -61,6 +61,9 @@ function echapperHtml($texte) {
                             <strong><?= echapperHtml($nomAffiche) ?></strong>
                             <small><?= echapperHtml($statutCompte) ?></small>
                         </span>
+                        <?php if (in_array($fonction, [UserStatut::Administrateur, UserStatut::SAdministrateur], true)): ?>
+                            <a class="hero__admin-link" href="Administration.php" title="Gérer les utilisateurs et les connexions">Administration</a>
+                        <?php endif; ?>
                         <form method="post" action="Deconnexion.php" class="hero__logout-form">
                             <input type="hidden" name="csrf_token" value="<?= echapperHtml($_SESSION['coreen_logout_csrf']) ?>">
                             <button type="submit" class="hero__logout" title="Se déconnecter de l'application">Déconnexion</button>

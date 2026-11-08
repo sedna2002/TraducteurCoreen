@@ -195,3 +195,9 @@ table#dictionnaire th:last-child, table#dictionnaire td:last-child { text-align:
     .hero__logout { padding: 9px 8px; font-size: 10px; }
     .hero__identity strong { font-size: 11px; }
 }
+
+/* Accès administration dans le bandeau (affiché uniquement aux administrateurs) */
+.hero__admin-link { border: 1px solid rgba(255,255,255,.22); border-radius: 9px; background: rgba(255,255,255,.13); color: #fff; padding: 10px 12px; font-size: 11px; font-weight: 750; white-space: nowrap; text-decoration: none; }
+.hero__admin-link:hover { background: rgba(255,255,255,.24); }
+.hero__admin-link:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+@media (max-width:420px) { .hero__admin-link { font-size: 10px; padding: 9px 8px; } }

@@ -47,6 +47,7 @@
     if (!validate()) return;
     const parameters = new URLSearchParams({
       login: value("login"),
+      csrf_token: value("account_csrf_token"),
       pw: create ? hex_md5(field("PW").value) : "",
       nom: value("nom"),
       prenom: value("prenom"),

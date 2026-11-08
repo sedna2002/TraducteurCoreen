@@ -1,60 +1,44 @@
 <?php
-// Vérification de la connexion : compatible avec les mots de passe MD5 historiques.
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
+/** Authentification compatible avec l’ancien navigateur (MD5 transmis), migration vers password_hash. */
+if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 require_once __DIR__ . '/Methodes_Connexions.php';
 header('Content-Type: text/plain; charset=UTF-8');
 header('Cache-Control: no-store');
-
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    exit('NOK');
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') { http_response_code(405); exit('NOK'); }
+$login = is_string($_POST['login'] ?? null) ? trim($_POST['login']) : '';
+$pwMd5 = is_string($_POST['pw'] ?? null) ? strtolower($_POST['pw']) : '';
+if ($login === '' || strlen($login) > 100 || !preg_match('/^[a-f0-9]{32}$/D', $pwMd5)) {
+    http_response_code(400); exit('NOK');
 }
-
-$login = isset($_POST['login']) && is_string($_POST['login']) ? trim($_POST['login']) : '';
-$pwMd5 = isset($_POST['pw']) && is_string($_POST['pw']) ? $_POST['pw'] : '';
-if ($login === '' || strlen($login) > 100 || !preg_match('/^[a-f0-9]{32}$/i', $pwMd5)) {
-    http_response_code(400);
-    exit('NOK');
-}
-
 try {
-    // Requête préparée pour éviter l'injection SQL sur le login.
-    $requete = $bdd->prepare('SELECT * FROM `utilisateurs` WHERE `Login` = :login AND `Password` = :pw LIMIT 1');
-    $requete->execute([':login' => $login, ':pw' => strtolower($pwMd5)]);
+    $requete = $bdd->prepare('SELECT * FROM `utilisateurs` WHERE `Login` = :login LIMIT 1');
+    $requete->execute([':login' => $login]);
     $compte = $requete->fetch(PDO::FETCH_ASSOC);
-    $requete->closeCursor();
+    $stored = is_array($compte) ? (string)$compte['Password'] : '';
+    $legacy = (bool)preg_match('/^[a-f0-9]{32}$/iD', $stored);
+    $ok = $legacy ? hash_equals(strtolower($stored), $pwMd5) :
+        password_verify('md5:' . $pwMd5, $stored);
+    if (!$compte || !$ok) { http_response_code(401); exit('NOK'); }
+    if (!(int)$compte['Valider']) { http_response_code(403); exit('NON_VALIDE'); }
 
-    if (!$compte) {
-        http_response_code(401);
-        exit('NOK');
+    // Convertit progressivement les empreintes MD5 brutes en hash moderne salé.
+    if ($legacy || password_needs_rehash($stored, PASSWORD_DEFAULT)) {
+        $newHash = password_hash('md5:' . $pwMd5, PASSWORD_DEFAULT);
+        $migrate = $bdd->prepare('UPDATE `utilisateurs` SET `Password` = :new WHERE `User_id` = :id AND `Password` = :old');
+        $migrate->execute([':new' => $newHash, ':id' => $compte['User_id'], ':old' => $stored]);
     }
-    if (empty($compte['Valider'])) {
-        http_response_code(403);
-        exit('NON_VALIDE');
-    }
-
-    $historique = $bdd->prepare('SELECT `Date` FROM `historique` WHERE `User_id` = :id ORDER BY `Date` DESC LIMIT 1');
-    $historique->execute([':id' => $compte['User_id']]);
-    $precedente = $historique->fetch(PDO::FETCH_ASSOC);
-    $historique->closeCursor();
-
-    $ajout = $bdd->prepare('INSERT INTO `historique` (`User_id`, `Date`, `AdresseIp`, `Host`)
-                            VALUES (:id, :date, :ip, :agent)');
-    $ajout->execute([
-        ':id' => $compte['User_id'],
-        ':date' => date('Y-m-d H:i:s'),
-        ':ip' => $_SERVER['REMOTE_ADDR'] ?? null,
-        ':agent' => $_SERVER['HTTP_USER_AGENT'] ?? null,
-    ]);
-
+    $q = $bdd->prepare('SELECT `Date` FROM `historique` WHERE `User_id` = :id ORDER BY `Date` DESC LIMIT 1');
+    $q->execute([':id' => $compte['User_id']]);
+    $last = $q->fetch(PDO::FETCH_ASSOC);
+    $insert = $bdd->prepare('INSERT INTO `historique` (`User_id`,`Date`,`AdresseIp`,`Host`) VALUES (:id,NOW(),:ip,:agent)');
+    $insert->execute([':id' => $compte['User_id'], ':ip' => $_SERVER['REMOTE_ADDR'] ?? null,
+        ':agent' => substr((string)($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 2000)]);
     session_regenerate_id(true);
+    unset($compte['Password']);
     $_SESSION['Connexion_User'] = $compte;
-    $_SESSION['Connexion_User']['LastConnexion'] = $precedente['Date'] ?? null;
+    $_SESSION['Connexion_User']['LastConnexion'] = $last['Date'] ?? null;
     echo 'OK';
 } catch (Throwable $e) {
-    error_log('[coreen] Erreur lors de l’authentification : ' . $e->getMessage());
-    http_response_code(503);
-    echo 'NOK';
+    error_log('[coreen] Erreur authentification : ' . $e->getMessage());
+    http_response_code(503); echo 'NOK';
 }

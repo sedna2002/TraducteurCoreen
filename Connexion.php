@@ -81,6 +81,8 @@ $enAttente = ($statut === UserStatut::NonValider);
                     </button>
                 </form>
 
+                <p class="reset-forgot-link"><a href="MotDePasseOublie.php">Mot de passe oublié ?</a></p>
+
                 <div class="login-panel__separator"><span>ou</span></div>
                 <p class="login-signup">Vous n'avez pas encore de compte ?<br>
                     <a href="CreationUser.php">Créer mon compte <span aria-hidden="true">↗</span></a>
