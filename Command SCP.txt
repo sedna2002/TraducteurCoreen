@@ -1,0 +1,8 @@
+Sur Windows : linux --> win : scp frederic@192.168.0.22:/var/www/html/traducteurCoreenFrancais/* .
+Sur Windows : win --> linux : scp -r * frederic@192.168.0.22:/var/www/html/traducteurCoreenFrancais
+
+
+Lancement automatique du script au demarrage:
+copier le script dans /etc/init.d > cp mon_script.sh /etc/init.d
+mettre le droit execution > chmod +x mon_script.sh
+declarer le script a lancer >  update-rc.d mon_script.sh defaults 80

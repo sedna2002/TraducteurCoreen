@@ -1,0 +1,419 @@
+﻿boire et manger;Légumes;brocoli;브로콜리
+boire et manger;Légumes;navet;무
+boire et manger;Légumes;l'échalote;돼지파
+boire et manger;Légumes;betterave;비트
+boire et manger;Légumes;l'artichaut;아티초크
+boire et manger;Légumes;l'avocat;아보카도
+boire et manger;Légumes;citrouille;늙은호박
+boire et manger;Légumes;champignon;버섯
+boire et manger;Légumes;l'ail;마늘
+boire et manger;Fruits;mangue;망고
+boire et manger;Fruits;abricot;살구
+boire et manger;Fruits;nectarine;찬도 복숭아
+boire et manger;Fruits;prune;자두
+boire et manger;Fruits;kaki;감
+boire et manger;Fruits;litchi;리치
+boire et manger;Fruits;grenade;석류
+boire et manger;boissons;smoothie;수무디
+boire et manger;boissons;cocktail;칵터일
+boire et manger;boissons;soda;소다수
+boire et manger;boissons;limonade;레모네이드
+boire et manger;boissons;tisane;허브차
+boire et manger;Viandes &poissons;Les viandes;고기
+boire et manger;Viandes &poissons;poulet;닭고기
+boire et manger;Viandes &poissons;porc;된장
+boire et manger;Viandes &poissons;bœuf;소고기
+boire et manger;Viandes &poissons;côtes (de bœuf ou de porc);갈비
+boire et manger;Viandes &poissons;jambon;햄
+boire et manger;Viandes &poissons;saucisse;소세지
+boire et manger;Viandes &poissons;Steak;스테이그
+boire et manger;Viandes &poissons;Dinde;칠면조 고기
+boire et manger;Viandes &poissons;paté;파테
+boire et manger;Viandes &poissons;charcuterie;가공육
+boire et manger;Viandes &poissons;cotelettes;갈비
+boire et manger;Viandes &poissons;roti;구운 고기
+boire et manger;Viandes &poissons;truite;송어
+boire et manger;Viandes &poissons;thon;참치
+boire et manger;Viandes &poissons;daurade;도라도
+boire et manger;Viandes &poissons;saumon;연어
+boire et manger;Viandes &poissons;sardine;정어리
+boire et manger;Viandes &poissons;cabillaud;생대구
+boire et manger;Viandes &poissons;morue;대구
+boire et manger;Viandes &poissons;le merlan;호분
+boire et manger;Viandes &poissons;le poulpe;낙지
+boire et manger;Viandes &poissons;moule;흥합
+boire et manger;Viandes &poissons;calamar;오진어
+boire et manger;Viandes &poissons;l'oursin;성게
+boire et manger;Viandes &poissons;l'écrevisse;가재
+boire et manger;Viandes &poissons;palourde;대합
+boire et manger;Viandes &poissons; homard;바닷가재
+boire et manger;Viandes &poissons;l'huitre;굴
+boire et manger;Viandes &poissons;crabe;게
+animaux;sauvage;Cygne;백조
+animaux;sauvage;Perroquet;앵무새
+animaux;sauvage;Pigeon;비둘기
+animaux;sauvage;L'aigle;독수리
+animaux;sauvage;Chouette;올빼미
+animaux;sauvage;Zèbre;얼룩말
+animaux;sauvage;Girafe;기린
+animaux;sauvage;Marmotte;마르모트
+animaux;sauvage;Hippopotame;하마
+animaux;sauvage;L'ours;곰
+animaux;sauvage;Panda;팬더
+animaux;sauvage;Cerf;사슴
+animaux;sauvage;Crocodile;악어
+animaux;sauvage;Koala;코알라
+animaux;sauvage;Baleine;고래
+animaux;domestique;souris;생쥐
+animaux;domestique;Hamster;햄스터
+animaux;domestique;Cochon-dinde;기니피그
+animaux;domestique;Tortue;거북이
+animaux;ferme;Lama;라마
+animaux;ferme;Chèvre;염소
+animaux;insecte;Coccinelle;무당벌레
+animaux;insecte;Guêpe;말벌
+animaux;insecte;Chenille;애벌래
+animaux;insecte;Araignée;거미
+animaux;insecte;escargot;달팽이
+Les essentiels;Vocabulaire de base;Bonjour;안녕하세요
+Les essentiels;Vocabulaire de base;Bonjour(formel);안녕하십니까
+Les essentiels;Vocabulaire de base;Excusez-moi(formel);실례합니다
+Les essentiels;Vocabulaire de base;Désolé/Pardon;죄송합니다
+Les essentiels;Vocabulaire de base;Salut/Bye;안녕
+Les essentiels;Vocabulaire de base;Oui;네
+Les essentiels;Vocabulaire de base;Non;아니요
+Les essentiels;Vocabulaire de base;Pourquoi;왜
+Les essentiels;Vocabulaire de base;Quoi;무엇/뭐
+Les essentiels;Vocabulaire de base;Maintenant;지금
+Les essentiels;Vocabulaire de base;Où;어디
+Les essentiels;Vocabulaire de base;Qui;누구
+Les essentiels;Vocabulaire de base;Quand;언제
+Les essentiels;Vocabulaire de base;Mais;근대/하지만
+Les essentiels;Vocabulaire de base;Comment;어떻게
+Les essentiels;Vocabulaire de base;Enchanté;반가워요
+Les essentiels;Vocabulaire de base;Enchanté(formel);반갑습니다
+Les essentiels;Vocabulaire de base;Merci(courant);고마워
+Les essentiels;Vocabulaire de base;Merci(formel);감사합니다
+Les essentiels;Vocabulaire de base;Merci(poli);고마워요
+Les essentiels;Vocabulaire de base;Celui-ci(proche de nous);이것
+Les essentiels;Vocabulaire de base;Celui-là(pas proche de nous);그것
+Les essentiels;Vocabulaire de base;Au revoir(si vous partez);안녕히계세요
+Les essentiels;Vocabulaire de base;Au revoir(si vois restez);안녕히 가세요
+Les essentiels;Vocabulaire de base;Je suis désolé(formel);죄송합니다
+Les essentiels;Vocabulaire de base;Je suis désolé(poli);미안해요
+Les essentiels;Vocabulaire de base;Je suis désolé(courant);미안해
+Les essentiels;Vocabulaire de base;Bonne nuit(formel);안녕히주무세요
+Les essentiels;Vocabulaire de base;Bonne nuit(poli);잘자요
+Les essentiels;Vocabulaire de base;Bonne nuit(courant);잘자
+Les essentiels;Vocabulaire de base;Parce que;왜냐하면
+Les essentiels;Verbes;savoir;알다
+Les essentiels;Verbes;Aller;가다
+Les essentiels;Verbes;penser;생각하다
+Les essentiels;Verbes;venir;오다
+Les essentiels;Verbes;mettre;놓다
+Les essentiels;Verbes;prendre;가지고 가다
+Les essentiels;Verbes;Trouver;찾아내다
+Les essentiels;Verbes;écouter;듣다
+Les essentiels;Verbes;travailler;일하다
+Les essentiels;Verbes;parler;말하다
+Les essentiels;Verbes;donner;주다
+Les essentiels;Verbes;aider;돕다
+Les essentiels;Verbes;aimer;사랑하다
+Les essentiels;Verbes;Voir;보다
+Les essentiels;Verbes;Faire;하다
+Les essentiels;Verbes;Écouter/Entendre;듣다
+Les essentiels;Verbes;Attendre;기다리다
+Les essentiels;Verbes;Manger;먹다
+Les essentiels;Verbes;Boire;마시다
+Les essentiels;Verbes;Ouvrir;열다
+Les essentiels;Verbes;Fermer;닫다
+Les essentiels;Verbes;Commencer;시작하다
+Les essentiels;Verbes;Finir;끝내다
+Les essentiels;Verbes;Apprendre;배우다
+Les essentiels;Verbes;Étudier;공부하다
+Les essentiels;Verbes;aider;돕다
+Les essentiels;Verbes;demander;물어보다
+Les essentiels;Verbes;Ne pas savoir;모르다
+Les essentiels;Verbes;Ne pas aimer;싫어하다
+Les essentiels;Verbes;Croire;믿다
+Les essentiels;Verbes;Jouer/s'amuser;놀다
+Les essentiels;Verbes;Partir;떠나다
+Les essentiels;Verbes;Devenir;되다
+Les essentiels;Verbes;Payer;내다
+Les essentiels;Verbes;Acheter;사다
+Les essentiels;Verbes;Vivre;살다
+Les essentiels;Verbes;Écrire;쓰다
+Les essentiels;Verbes;Lire;읽다
+Les essentiels;Verbes;Dormir;자다
+Les essentiels;Verbes;Pleurer;울다
+Les essentiels;Verbes;Nettoyer;청소하다
+Relations humaines;Se présenter;Prénom;이름
+Relations humaines;Se présenter;Nom;성
+Relations humaines;Se présenter;Âge;나이
+Relations humaines;Se présenter;Sexe;성별
+Relations humaines;Se présenter;Adresse;주소
+Relations humaines;Se présenter;Taille;키
+Relations humaines;Se présenter;Poids;몸무게
+Relations humaines;Se présenter;Homme;남자
+Relations humaines;Se présenter;Femme;여자
+Relations humaines;Se présenter;Monsieur;아저씨
+Relations humaines;Se présenter;Madame;아주머니
+Relations humaines;Se présenter;Mademoiselle;아가씨
+Relations humaines;Se présenter;Adolescent;청소년
+Relations humaines;Se présenter;Orphelin;고아
+Relations humaines;Se présenter;Enfant;아이
+Relations humaines;Se présenter;Petit-garçon;남자 아이
+Relations humaines;Se présenter;Petite-fille;여자 아이
+Relations humaines;Se présenter;Retraité;퇴직자
+Relations humaines;Se présenter;Célibataire;미혼자
+Relations humaines;Se présenter;Fiancé(e);약혼자
+Relations humaines;Se présenter;Divorcé(e);이혼자
+Relations humaines;Se présenter;Marié;기혼
+Relations humaines;Se présenter;Célibataire;미혼
+Relations humaines;Se présenter;Ami(e);친구
+Relations humaines;Se présenter;Mari;남편
+Relations humaines;Se présenter;Femme(/Mari);아내
+Relations humaines;Se présenter;Date de naissance;생년월일
+Relations humaines;Se présenter;Lieu de naissance;출생지
+Relations humaines;Se présenter;Petite amie;여자 친구
+Relations humaines;Se présenter;Petit copain;남자 친구
+Relations humaines;Se présenter;Personne âgée;노인
+Relations humaines;Se présenter;Un bébé;아기
+Relations humaines;Se décrire;Tatouage;문신
+Relations humaines;Se décrire;Jeune;젊은
+Relations humaines;Se décrire;Petit(e);작은
+Relations humaines;Se décrire;Grand(e);큰
+Relations humaines;Se décrire;Vieux,vieille;늙은
+Relations humaines;Se décrire;Mince;날씨한
+Relations humaines;Se décrire;Enrobé;뚱뚱한
+Relations humaines;Se décrire;Maigre;마른
+Relations humaines;Se décrire;Élégant;우아한
+Relations humaines;Se décrire;Négligé;소홀히 항
+Relations humaines;Se décrire;Beau/belle;잘생긴
+Relations humaines;Se décrire;Laid(e);못생긴
+Relations humaines;Se décrire;Chauve;대머리의
+Relations humaines;Se décrire;Lunette;안경
+Relations humaines;Se décrire;Avoir les cheveux courts;머리가짧다
+Relations humaines;Caractère;Drôle;웃김
+Relations humaines;Caractère;Ennuyeux(euse);지루한
+Relations humaines;Caractère;Ouvert(e);열린
+Relations humaines;Caractère;Timide;수줍은
+Relations humaines;Caractère;Joyeux;유쾌한
+Relations humaines;Caractère;Bavard;수다스러운
+Relations humaines;Caractère;Ordonné;꼼꼼한
+Relations humaines;Caractère;Désordonné;무질서한
+Relations humaines;Caractère;Généreux;관대한
+Relations humaines;Caractère;Sympa;상냥한
+Relations humaines;Caractère;Futé;약삭빠른
+Relations humaines;Caractère;Calme;차분한
+Relations humaines;Caractère;Égoïste;이기적인
+Relations humaines;Caractère;Poli;에의바른
+Relations humaines;Caractère;Impatient;성급한
+Relations humaines;Caractère;Maladroit;서투른
+Relations humaines;Caractère;Curieux;호기심이 많은
+Relations humaines;Caractère;Paresseux;게으른
+Relations humaines;Caractère;Fier;자랑스러운
+Relations humaines;Caractère;Mal élevé ;버릇없는
+Relations humaines;Famille;Grands-parents ;조부모
+Relations humaines;Famille;Grand-père;할아버지
+Relations humaines;Famille;Père;아버지
+Relations humaines;Famille;Papa;아빠
+Relations humaines;Famille;Grand-mère;할머니
+Relations humaines;Famille;Mère;어머니
+Relations humaines;Famille;Maman;엄마
+Relations humaines;Famille;La petite-fille ;손녀
+Relations humaines;Famille;Grand frère(si vous êtes un homme);형
+Relations humaines;Famille;Grand frère(si vous êtes un homme);오빠
+Relations humaines;Famille;Grande sœur(si vous êtes un homme);누나
+Relations humaines;Famille;Grande sœur(si vous êtes une femme);언니
+Relations humaines;Famille;Enfant unique;외동
+Relations humaines;Famille;Sœurs jumelles;쌍둥이 자매
+Relations humaines;Famille;Frères jumeaux;쌍둥이 형제
+Relations humaines;Famille;Petite sœur;여동생
+Relations humaines;Famille;Petit frère;남동생
+Relations humaines;Famille;La fille;딸
+Relations humaines;Famille;Famille nombreuse;대가족
+Relations humaines;Famille;Le fils;아들
+Relations humaines;Famille;Les parents;부모님
+Relations humaines;Famille;Le petit fils;손자
+Santé et corps;Visage;Le front; 이마
+Santé et corps;Visage;Yeux;눈
+Santé et corps;Visage;Cheveux;머리가락
+Santé et corps;Visage;Lèvres;입술
+Santé et corps;Visage;Menton;턱
+Santé et corps;Visage;Langue;혀
+Santé et corps;Visage;Nez;코
+Santé et corps;Visage;Les sourcils;눈썹
+Santé et corps;Visage;Bouche;입
+Santé et corps;Visage;Oreilles;귀
+Santé et corps;Visage;Dents;차아
+Santé et corps;Visage;La joue;볼
+Santé et corps;Visage;Narines;콧구멍
+Santé et corps;Visage;Paupière;눈꺼풀
+Santé et corps;Visage;Cils;속눈썹
+Santé et corps;Visage;Cernes;다크서클
+Santé et corps;Corps;Cou;목
+Santé et corps;Corps;Épaule;어깨
+Santé et corps;Corps;Bras;팔
+Santé et corps;Corps;Doigt;손가락
+Santé et corps;Corps;Dos;등
+Santé et corps;Corps;Ongles;손톱
+Santé et corps;Corps;Poignet;손목
+Santé et corps;Corps;Coude;팔꿈치
+Santé et corps;Corps;Main;손
+Santé et corps;Corps;Ventre;배
+Santé et corps;Corps;Poitrine;젖가슴
+Santé et corps;Corps;Nombril;배꼽
+Santé et corps;Corps;Gorge;목구멍
+Santé et corps;Corps;Aiselle;겨드랑이
+Santé et corps;Corps;Tête;머리
+Santé et corps;Corps;Jambe;다리
+Santé et corps;Corps;Orteil;발가락
+Santé et corps;Corps;Genou;무릎
+Santé et corps;Corps;Cheville;발목
+Santé et corps;Corps;Fesse;엉덩이
+Santé et corps;Corps;Pied;발
+Santé et corps;Corps;La peau;피부
+Les chiffres et les dâtes;Chiffres coréen;1;하나
+Les chiffres et les dâtes;Chiffres coréen;2;둘
+Les chiffres et les dâtes;Chiffres coréen;3;셋
+Les chiffres et les dâtes;Chiffres coréen;4;넷
+Les chiffres et les dâtes;Chiffres coréen;5;다섯
+Les chiffres et les dâtes;Chiffres coréen;6;여섯
+Les chiffres et les dâtes;Chiffres coréen;7;일곱
+Les chiffres et les dâtes;Chiffres coréen;8;여덟
+Les chiffres et les dâtes;Chiffres coréen;9;아홉
+Les chiffres et les dâtes;Chiffres coréen;10;열
+Les chiffres et les dâtes;Chiffres coréen;20;스물
+Les chiffres et les dâtes;Chiffres coréen;30;서른
+Les chiffres et les dâtes;Chiffres coréen;40;마흔
+Les chiffres et les dâtes;Chiffres coréen;50;쉰
+Les chiffres et les dâtes;Chiffres coréen;60;예순
+Les chiffres et les dâtes;Chiffres coréen;70;일흔
+Les chiffres et les dâtes;Chiffres coréen;80;여든
+Les chiffres et les dâtes;Chiffres coréen;90;아흔
+Les chiffres et les dâtes;Chiffres Sino-Coréen;1;일
+Les chiffres et les dâtes;Chiffres Sino-Coréen;2;이
+Les chiffres et les dâtes;Chiffres Sino-Coréen;3;삼
+Les chiffres et les dâtes;Chiffres Sino-Coréen;4;사
+Les chiffres et les dâtes;Chiffres Sino-Coréen;5;오
+Les chiffres et les dâtes;Chiffres Sino-Coréen;6;육
+Les chiffres et les dâtes;Chiffres Sino-Coréen;7;칠
+Les chiffres et les dâtes;Chiffres Sino-Coréen;8;팔
+Les chiffres et les dâtes;Chiffres Sino-Coréen;9;구
+Les chiffres et les dâtes;Chiffres Sino-Coréen;10;십
+Les chiffres et les dâtes;Chiffres Sino-Coréen;20;이십
+Les chiffres et les dâtes;Chiffres Sino-Coréen;30;삼십
+Les chiffres et les dâtes;Chiffres Sino-Coréen;40;사십
+Les chiffres et les dâtes;Chiffres Sino-Coréen;50;오십
+Les chiffres et les dâtes;Chiffres Sino-Coréen;60;육십
+Les chiffres et les dâtes;Chiffres Sino-Coréen;70;칠십
+Les chiffres et les dâtes;Chiffres Sino-Coréen;80;팔십
+Les chiffres et les dâtes;Chiffres Sino-Coréen;90;구십
+Les chiffres et les dâtes;Chiffres Sino-Coréen;100;백
+Les chiffres et les dâtes;Saisons et jours;Saison;계절
+Les chiffres et les dâtes;Saisons et jours;Printemps;봄
+Les chiffres et les dâtes;Saisons et jours;Été;여름
+Les chiffres et les dâtes;Saisons et jours;Automne;가을
+Les chiffres et les dâtes;Saisons et jours;Hiver;겨울
+Les chiffres et les dâtes;Saisons et jours;Lundi;월요일
+Les chiffres et les dâtes;Saisons et jours;Mardi;화요일
+Les chiffres et les dâtes;Saisons et jours;Mercredi;수요일
+Les chiffres et les dâtes;Saisons et jours;Jeudi;목요일
+Les chiffres et les dâtes;Saisons et jours;Vendredi;금요일
+Les chiffres et les dâtes;Saisons et jours;Samedi;토요일
+Les chiffres et les dâtes;Saisons et jours;Dimanche;일요일
+Les chiffres et les dâtes;Mois de l'année;Janvier;일월
+Les chiffres et les dâtes;Mois de l'année;Février;이월
+Les chiffres et les dâtes;Mois de l'année;Mars;삼월
+Les chiffres et les dâtes;Mois de l'année;Avril;사월
+Les chiffres et les dâtes;Mois de l'année;Mai;오월
+Les chiffres et les dâtes;Mois de l'année;Juin;유월
+Les chiffres et les dâtes;Mois de l'année;Juillet;칠월
+Les chiffres et les dâtes;Mois de l'année;Août;팔월
+Les chiffres et les dâtes;Mois de l'année;Septembre;구월
+Les chiffres et les dâtes;Mois de l'année;Octobre;시월
+Les chiffres et les dâtes;Mois de l'année;Novembre;십일월
+Les chiffres et les dâtes;Mois de l'année;Décembre;십이월
+Les chiffres et les dâtes;L'heure;Heure;시
+Les chiffres et les dâtes;L'heure;Minute;분
+Les chiffres et les dâtes;L'heure;moitié;반
+Les chiffres et les dâtes;L'heure;Matin;오전
+Les chiffres et les dâtes;L'heure;Aujourd'hui;오늘
+Les chiffres et les dâtes;L'heure;Demain;내일
+Les chiffres et les dâtes;L'heure;Après-demain;모래
+Les chiffres et les dâtes;L'heure;Hier;어제
+Les chiffres et les dâtes;L'heure;Avant-hier;그저께
+Les chiffres et les dâtes;L'heure;La veille;전날
+Les chiffres et les dâtes;L'heure;Le lendemain;다음날
+Les chiffres et les dâtes;L'heure;Cette semaine;이번주
+Les chiffres et les dâtes;L'heure;La semaine prochaine;다음주
+Les chiffres et les dâtes;L'heure;La semaine dernière;지난 주
+Les chiffres et les dâtes;L'heure;Quelle heure est-il?;몇 시에요
+manger et boire;Ingrédients;gingembre;생강
+manger et boire;Ingrédients;ginseng;인삼
+manger et boire;Ingrédients;beurre;버터
+manger et boire;Ingrédients;sel;소금
+manger et boire;Ingrédients;sucre;설탕
+manger et boire;Ingrédients;poivre;후추
+manger et boire;Ingrédients;sauce soja;간장
+manger et boire;Ingrédients;huile;기름
+manger et boire;Ingrédients;huile de sésame;참기름
+manger et boire;Ingrédients;sésame;깨
+manger et boire;Ingrédients;vinaigre;식초
+manger et boire;Ingrédients;moutarde;겨자
+manger et boire;Ingrédients;Ketchup;케찹
+manger et boire;Ingrédients;Mayonnaise;마요네즈
+manger et boire;Ingrédients;Cornichons;오이피클
+manger et boire;Ingrédients;Sauce;소스
+manger et boire;Ingrédients;Persil;파슬리
+manger et boire;Ingrédients;Coriandre;고수
+manger et boire;Ingrédients;Basilic;바질
+manger et boire;Ingrédients;Ciboulette;산파
+manger et boire;Ingrédients;Thym;타임
+manger et boire;Ingrédients;Le romarin;로즈마리
+manger et boire;Ingrédients;Piment;고춧가루
+La nature;La météo;le temps;날씨
+La nature;La météo;Ciel;해늘
+La nature;La météo;Soleil;해
+La nature;La météo;Nuage;구름
+La nature;La météo;Pluie;비
+La nature;La météo;neige;눈
+La nature;La météo;vent;바람
+La nature;La météo;la saison des pluies;장마
+La nature;La météo;Le brouillard;안개
+La nature;La météo;Arc-en-ciel; 무지개
+La nature;La météo;Température;기온
+La nature;Les planètes;Terre;지구
+La nature;Les planètes;Soleil;태양
+La nature;Les planètes;Lune;달
+La nature;Les planètes;Vénus;금성
+La nature;Les planètes;Satellite;위성
+La nature;Les planètes;Planète;행성
+La nature;Les planètes;Neptune;해왕성
+La nature;Les planètes;Uranus;천왕성
+La nature;Les planètes;Saturne;토성
+La nature;Les planètes;Système solaire;태양계
+La nature;Les planètes;La voie lactée;은하수
+La nature;Les planètes;Constellation;별자리
+La nature;Les planètes;Jupiter;목성
+La nature;Les planètes;Mars;화성
+La nature;Les planètes;Mercure;수성
+La nature;Les planètes;L'éclipse;식
+La nature;Les planètes;La pleine lune;부름달
+La nature;Les planètes;Étoile filante;유성
+La nature;Paysage;Volcan;화산
+La nature;Paysage;L'île;섬
+La nature;Paysage;Montagne;산
+La nature;Paysage;La plaine;평야
+La nature;Paysage;Paysage;풍경
+La nature;Paysage;La vallée;계곡
+La nature;Paysage;Cascade;폭포
+La nature;Paysage;Colline;언덕
+La nature;Paysage;Fleuve;강
+La nature;Paysage;Lac;호수
+La nature;Paysage;Jungle;밀림
+La nature;Paysage;Falaise;절벽
+La nature;Paysage;Stalactite;고드름
+La nature;Paysage;Lever de soleil;일출
+La nature;Paysage;Coucher de soleil;일몰
